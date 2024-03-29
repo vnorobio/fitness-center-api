@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscriptionCommand;
-import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscriptionUseCase;
+import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
+import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +20,10 @@ class InscriptionControllerTest {
 
     public static final String VALID_EMAIL = "valid.email@server.com";
     public static final String INVALID_EMAIL = "user-name@domain.com.";
-    public static final EmailInscriptionCommand INSCRIPTION_COMMAND = new EmailInscriptionCommand(VALID_EMAIL);
+    public static final InscriptionCommand INSCRIPTION_COMMAND = new InscriptionCommand(VALID_EMAIL);
     public static final String REGISTRATION_TOKEN = "valid-registration-token";
     @Mock
-    public EmailInscriptionUseCase inscriptionUseCase;
+    public InscriptionUseCase inscriptionUseCase;
 
     private InscriptionController inscriptionController;
 

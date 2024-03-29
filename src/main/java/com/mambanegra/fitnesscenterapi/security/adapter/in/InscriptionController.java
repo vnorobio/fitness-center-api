@@ -1,8 +1,11 @@
 package com.mambanegra.fitnesscenterapi.security.adapter.in;
 
-import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscriptionCommand;
-import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscriptionUseCase;
+import static com.mambanegra.fitnesscenterapi.security.adapter.config.in.InscriptionControllerConfiguration.EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME;
+
+import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
+import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,17 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "/v1/inscription")
+@RequestMapping(name = "/api/v1/inscriptions")
 public class InscriptionController {
 
-    private final EmailInscriptionUseCase emailInscriptionProcessor;
+    private final InscriptionUseCase emailInscriptionProcessor;
 
-    public InscriptionController(EmailInscriptionUseCase emailInscriptionProcessor) {this.emailInscriptionProcessor = emailInscriptionProcessor;}
+    public InscriptionController(@Qualifier(EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME) InscriptionUseCase emailInscriptionProcessor) {this.emailInscriptionProcessor = emailInscriptionProcessor;}
 
     @PostMapping()
     public ResponseEntity<String> createInscription(@RequestBody String email) {
         try {
-            EmailInscriptionCommand inscriptionCommand = new EmailInscriptionCommand(email);
+            InscriptionCommand inscriptionCommand = new InscriptionCommand(email);
             Optional<String> inscriptionResult = emailInscriptionProcessor.registerWithEmail(inscriptionCommand);
             return inscriptionResult
                     .map(token -> ResponseEntity.status(HttpStatus.CREATED).body(token))

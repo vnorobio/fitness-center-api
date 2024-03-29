@@ -1,0 +1,20 @@
+package com.mambanegra.fitnesscenterapi.security.adapter.config.in;
+
+import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionProcessor;
+import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionTokenService;
+import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
+import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSourceAdapter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class InscriptionControllerConfiguration {
+
+    public static final String EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME = "emailInscriptionUseCase";
+
+    @Bean(name = EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME)
+    public InscriptionUseCase emailInscriptionUseCase(InscriptionDataSourceAdapter inscriptionDataSourceAdapter,
+                                                      InscriptionTokenService tokenService){
+        return new InscriptionProcessor(inscriptionDataSourceAdapter, tokenService);
+    }
+}
