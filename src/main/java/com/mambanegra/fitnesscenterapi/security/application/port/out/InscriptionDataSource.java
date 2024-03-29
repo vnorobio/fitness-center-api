@@ -1,5 +1,5 @@
 package com.mambanegra.fitnesscenterapi.security.application.port.out;
 
-public interface InscriptionDataSourceAdapter {
+public interface InscriptionDataSource {
     void saveEmail(String email);
 }

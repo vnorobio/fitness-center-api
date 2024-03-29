@@ -2,7 +2,7 @@ package com.mambanegra.fitnesscenterapi.security.application.domain.config;
 
 import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionDataBaseAdapter;
 import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionTokenService;
-import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSourceAdapter;
+import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +13,7 @@ public class InscriptionProcessorConfiguration {
     public static final String INSCRIPTION_DATA_SOURCE_ADAPTER_BEAN_NAME = "inscriptionDataSourceAdapter";
 
     @Bean(name = INSCRIPTION_DATA_SOURCE_ADAPTER_BEAN_NAME)
-    public InscriptionDataSourceAdapter inscriptionDataSourceAdapter() {
+    public InscriptionDataSource inscriptionDataSourceAdapter() {
         return new InscriptionDataBaseAdapter();
     }
 

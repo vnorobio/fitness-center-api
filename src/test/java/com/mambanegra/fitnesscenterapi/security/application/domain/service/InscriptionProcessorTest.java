@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
-import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSourceAdapter;
+import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -17,7 +17,7 @@ class InscriptionProcessorTest {
     public static final String TEST_EMAIL = "test@example.com";
     public static final InscriptionCommand INSCRIPTION_COMMAND = new InscriptionCommand(TEST_EMAIL);
     @Mock
-    private InscriptionDataSourceAdapter mockDatasourceAdapter;
+    private InscriptionDataSource mockDatasourceAdapter;
 
     @Mock
     private InscriptionTokenService mockTokenService;
