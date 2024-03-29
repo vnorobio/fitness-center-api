@@ -3,6 +3,7 @@ package com.mambanegra.fitnesscenterapi.security.adapter.in;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscriptionCommand;
@@ -46,5 +47,12 @@ class InscriptionControllerTest {
         ResponseEntity<String> response = inscriptionController.createInscription(VALID_EMAIL);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         verify(inscriptionUseCase, times(1)).registerWithEmail(INSCRIPTION_COMMAND);
+    }
+
+    @Test
+    void createInscriptionReturnBadRequestCode() {
+        ResponseEntity<String> response = inscriptionController.createInscription("");
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        verifyNoInteractions(inscriptionUseCase);
     }
 }

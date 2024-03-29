@@ -20,10 +20,14 @@ public class InscriptionController {
 
     @PostMapping()
     public ResponseEntity<String> createInscription(@RequestBody String email) {
-        EmailInscriptionCommand inscriptionCommand = new EmailInscriptionCommand(email);
-        Optional<String> inscriptionResult = emailInscriptionProcessor.registerWithEmail(inscriptionCommand);
-        return inscriptionResult
-                .map(token -> ResponseEntity.status(HttpStatus.CREATED).body(token))
-                .orElseGet(() -> ResponseEntity.internalServerError().build());
+        try {
+            EmailInscriptionCommand inscriptionCommand = new EmailInscriptionCommand(email);
+            Optional<String> inscriptionResult = emailInscriptionProcessor.registerWithEmail(inscriptionCommand);
+            return inscriptionResult
+                    .map(token -> ResponseEntity.status(HttpStatus.CREATED).body(token))
+                    .orElseGet(() -> ResponseEntity.internalServerError().build());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
