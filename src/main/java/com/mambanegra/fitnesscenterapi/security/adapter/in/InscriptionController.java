@@ -4,7 +4,6 @@ import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscrip
 import com.mambanegra.fitnesscenterapi.security.application.port.in.EmailInscriptionUseCase;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
