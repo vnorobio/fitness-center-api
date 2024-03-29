@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 class InscriptionControllerTest {
 
     public static final String VALID_EMAIL = "valid.email@server.com";
+    public static final String INVALID_EMAIL = "user-name@domain.com.";
     public static final EmailInscriptionCommand INSCRIPTION_COMMAND = new EmailInscriptionCommand(VALID_EMAIL);
     public static final String REGISTRATION_TOKEN = "valid-registration-token";
     @Mock
@@ -50,8 +51,15 @@ class InscriptionControllerTest {
     }
 
     @Test
-    void createInscriptionReturnBadRequestCode() {
+    void createInscriptionReturnBadRequestCodeWhenEmptyEmail() {
         ResponseEntity<String> response = inscriptionController.createInscription("");
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        verifyNoInteractions(inscriptionUseCase);
+    }
+
+    @Test
+    void createInscriptionReturnBadRequestCodeWhenInvalidEmail() {
+        ResponseEntity<String> response = inscriptionController.createInscription(INVALID_EMAIL);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         verifyNoInteractions(inscriptionUseCase);
     }
