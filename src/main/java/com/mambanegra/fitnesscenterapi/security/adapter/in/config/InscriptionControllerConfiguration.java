@@ -1,4 +1,4 @@
-package com.mambanegra.fitnesscenterapi.security.adapter.config.in;
+package com.mambanegra.fitnesscenterapi.security.adapter.in.config;
 
 import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionProcessor;
 import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionTokenService;
