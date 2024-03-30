@@ -4,6 +4,7 @@ import com.mambanegra.fitnesscenterapi.security.application.domain.service.Inscr
 import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionTokenService;
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
+import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionEmailSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +15,8 @@ public class InscriptionControllerConfiguration {
 
     @Bean(name = EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME)
     public InscriptionUseCase emailInscriptionUseCase(InscriptionDataSource inscriptionDataSource,
-                                                      InscriptionTokenService tokenService){
-        return new InscriptionProcessor(inscriptionDataSource, tokenService);
+                                                      InscriptionTokenService tokenService,
+                                                      InscriptionEmailSender emailService){
+        return new InscriptionProcessor(inscriptionDataSource, tokenService, emailService);
     }
 }

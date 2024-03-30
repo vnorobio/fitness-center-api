@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
+import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionEmailSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,23 +23,28 @@ class InscriptionProcessorTest {
     @Mock
     private InscriptionTokenService mockTokenService;
 
+    @Mock
+    InscriptionEmailSender mockEmailSender;
+
     private InscriptionProcessor inscriptionProcessor;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        inscriptionProcessor = new InscriptionProcessor(mockDatasourceAdapter, mockTokenService);
+        inscriptionProcessor = new InscriptionProcessor(mockDatasourceAdapter, mockTokenService, mockEmailSender);
     }
 
     @Test
     void registerWithEmailHappyPath() {
         when(mockTokenService.generateInscriptionToken(TEST_EMAIL)).thenReturn(REGISTRATION_TOKEN);
         doNothing().when(mockDatasourceAdapter).saveEmail(TEST_EMAIL);
+        doNothing().when(mockEmailSender).sendInscriptionConfirmation(TEST_EMAIL);
 
         String resultToken  = inscriptionProcessor.registerWithEmail(INSCRIPTION_COMMAND).orElseGet(() -> "");
 
         assertEquals(REGISTRATION_TOKEN, resultToken);
         verify(mockDatasourceAdapter).saveEmail(TEST_EMAIL);
+        verify(mockEmailSender).sendInscriptionConfirmation(TEST_EMAIL);
         verify(mockTokenService).generateInscriptionToken(TEST_EMAIL);
     }
 }
