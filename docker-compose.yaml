@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  java_app:
+    container_name: fitness_center_api
+    image: fitness-center-api:0.0.1
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=jdbc:postgresql://data_base:5432/black_mamba
+      - DATABASE_USER_NAME=postgres
+      - DATABASE_PASSWORD=m4mb4
+    depends_on:
+      - data_base
+  data_base:
+    container_name: fitness_center_db
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=m4mb4
+      - POSTGRES_DB=black_mamba
