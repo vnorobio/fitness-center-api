@@ -1,24 +1,23 @@
 package com.mambanegra.fitnesscenterapi.security.application.domain.service;
 
-import static com.mambanegra.fitnesscenterapi.security.application.domain.config.InscriptionProcessorConfiguration.INSCRIPTION_DATA_SOURCE_ADAPTER_BEAN_NAME;
-import static com.mambanegra.fitnesscenterapi.security.application.domain.config.InscriptionProcessorConfiguration.INSCRIPTION_EMAIL_SENDER_BEAN_NAME;
-import static com.mambanegra.fitnesscenterapi.security.application.domain.config.InscriptionProcessorConfiguration.INSCRIPTION_TOKEN_SERVICE_BEAN_NAME;
-
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionEmailSender;
+import java.security.Key;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 public class InscriptionProcessor implements InscriptionUseCase {
+    private final KeyManagerService keyManagerService;
     private final InscriptionDataSource inscriptionDataSource;
     private final TokenGeneratorService tokenService;
     private final InscriptionEmailSender inscriptionEmailAdapter;
 
-    public InscriptionProcessor(@Qualifier(INSCRIPTION_DATA_SOURCE_ADAPTER_BEAN_NAME) InscriptionDataSource inscriptionDataSource,
-                                @Qualifier(INSCRIPTION_TOKEN_SERVICE_BEAN_NAME) TokenGeneratorService tokenService,
-                                @Qualifier(INSCRIPTION_EMAIL_SENDER_BEAN_NAME)InscriptionEmailSender inscriptionEmailAdapter) {
+    public InscriptionProcessor(KeyManagerService keyManagerService,
+                                InscriptionDataSource inscriptionDataSource,
+                                TokenGeneratorService tokenService,
+                                InscriptionEmailSender inscriptionEmailAdapter) {
+        this.keyManagerService = keyManagerService;
         this.inscriptionDataSource = inscriptionDataSource;
         this.tokenService = tokenService;
         this.inscriptionEmailAdapter = inscriptionEmailAdapter;
@@ -29,6 +28,7 @@ public class InscriptionProcessor implements InscriptionUseCase {
         String email = command.email();
         inscriptionDataSource.saveEmail(email);
         inscriptionEmailAdapter.sendInscriptionConfirmation(email);
-        return Optional.of(tokenService.generateJwtToken(email));
+        Key signingKey = keyManagerService.getPrivateKey();
+        return Optional.of(tokenService.generateJwtToken(signingKey, email));
     }
 }
