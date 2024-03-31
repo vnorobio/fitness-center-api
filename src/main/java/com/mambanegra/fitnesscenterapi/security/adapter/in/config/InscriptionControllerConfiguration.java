@@ -1,7 +1,7 @@
 package com.mambanegra.fitnesscenterapi.security.adapter.in.config;
 
 import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionProcessor;
-import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionTokenService;
+import com.mambanegra.fitnesscenterapi.security.application.domain.service.TokenGeneratorService;
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionEmailSender;
@@ -15,7 +15,7 @@ public class InscriptionControllerConfiguration {
 
     @Bean(name = EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME)
     public InscriptionUseCase emailInscriptionUseCase(InscriptionDataSource inscriptionDataSource,
-                                                      InscriptionTokenService tokenService,
+                                                      TokenGeneratorService tokenService,
                                                       InscriptionEmailSender emailService){
         return new InscriptionProcessor(inscriptionDataSource, tokenService, emailService);
     }

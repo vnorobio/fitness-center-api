@@ -21,7 +21,7 @@ class InscriptionProcessorTest {
     private InscriptionDataSource mockDatasourceAdapter;
 
     @Mock
-    private InscriptionTokenService mockTokenService;
+    private TokenGeneratorService mockTokenService;
 
     @Mock
     InscriptionEmailSender mockEmailSender;
@@ -36,7 +36,7 @@ class InscriptionProcessorTest {
 
     @Test
     void registerWithEmailHappyPath() {
-        when(mockTokenService.generateInscriptionToken(TEST_EMAIL)).thenReturn(REGISTRATION_TOKEN);
+        when(mockTokenService.generateJwtToken(TEST_EMAIL)).thenReturn(REGISTRATION_TOKEN);
         doNothing().when(mockDatasourceAdapter).saveEmail(TEST_EMAIL);
         doNothing().when(mockEmailSender).sendInscriptionConfirmation(TEST_EMAIL);
 
@@ -45,6 +45,6 @@ class InscriptionProcessorTest {
         assertEquals(REGISTRATION_TOKEN, resultToken);
         verify(mockDatasourceAdapter).saveEmail(TEST_EMAIL);
         verify(mockEmailSender).sendInscriptionConfirmation(TEST_EMAIL);
-        verify(mockTokenService).generateInscriptionToken(TEST_EMAIL);
+        verify(mockTokenService).generateJwtToken(TEST_EMAIL);
     }
 }

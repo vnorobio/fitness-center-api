@@ -6,7 +6,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Base64;
 import org.springframework.http.HttpStatus;
 
 public class InscriptionEmailAdapter implements InscriptionEmailSender {
@@ -17,16 +19,19 @@ public class InscriptionEmailAdapter implements InscriptionEmailSender {
     private final HttpClient httpClient;
     private final String resourceUri;
     private final String accessToken;
+    private final Base64.Encoder  encoder;
 
     public InscriptionEmailAdapter(String resourceUri, String accessToken, HttpClient httpClient) {
         this.resourceUri = resourceUri;
         this.accessToken = accessToken;
         this.httpClient = httpClient;
+        this.encoder = Base64.getEncoder();
     }
     @Override
     public void sendInscriptionConfirmation(String email) {
         try {
-            HttpRequest request = prepareInscriptionEmailRequest(email);
+            String encodedEmail = encoder.encodeToString(email.getBytes(StandardCharsets.UTF_8));
+            HttpRequest request = prepareInscriptionEmailRequest(encodedEmail);
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != HttpStatus.OK.value()) {
                 throw new RuntimeException("Failed to send inscription confirmation email");

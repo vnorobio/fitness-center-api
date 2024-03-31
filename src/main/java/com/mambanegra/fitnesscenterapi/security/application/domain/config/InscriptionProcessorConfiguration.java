@@ -4,10 +4,11 @@ import static com.mambanegra.fitnesscenterapi.security.adapter.out.config.Inscri
 import static com.mambanegra.fitnesscenterapi.security.adapter.out.config.InscriptionEmailAdapterConfiguration.INSCRIPTION_ACCESS_TOKEN_BEAN_NAME;
 import static com.mambanegra.fitnesscenterapi.security.adapter.out.config.InscriptionEmailAdapterConfiguration.INSCRIPTION_BASE_URL_BEAN_NAME;
 import static com.mambanegra.fitnesscenterapi.security.adapter.out.config.InscriptionEmailAdapterConfiguration.INSCRIPTION_URI_BEAN_NAME;
+import static com.mambanegra.fitnesscenterapi.security.application.domain.config.TokenGeneratorServiceConfiguration.KEY_SIGNATURE_STRING_BEAN_NAME;
 
 import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionDataBaseAdapter;
 import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionEmailAdapter;
-import com.mambanegra.fitnesscenterapi.security.application.domain.service.InscriptionTokenService;
+import com.mambanegra.fitnesscenterapi.security.application.domain.service.TokenGeneratorService;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionEmailSender;
 import java.net.http.HttpClient;
@@ -28,8 +29,8 @@ public class InscriptionProcessorConfiguration {
     }
 
     @Bean(name = INSCRIPTION_TOKEN_SERVICE_BEAN_NAME)
-    public InscriptionTokenService inscriptionTokenService() {
-        return new InscriptionTokenService();
+    public TokenGeneratorService inscriptionTokenService(@Qualifier(KEY_SIGNATURE_STRING_BEAN_NAME) String signatureKey) {
+        return new TokenGeneratorService(signatureKey);
     }
 
     @Bean(name = INSCRIPTION_EMAIL_SENDER_BEAN_NAME)

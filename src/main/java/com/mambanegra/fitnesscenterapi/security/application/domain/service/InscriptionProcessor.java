@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 public class InscriptionProcessor implements InscriptionUseCase {
     private final InscriptionDataSource inscriptionDataSource;
-    private final InscriptionTokenService tokenService;
+    private final TokenGeneratorService tokenService;
     private final InscriptionEmailSender inscriptionEmailAdapter;
 
     public InscriptionProcessor(@Qualifier(INSCRIPTION_DATA_SOURCE_ADAPTER_BEAN_NAME) InscriptionDataSource inscriptionDataSource,
-                                @Qualifier(INSCRIPTION_TOKEN_SERVICE_BEAN_NAME) InscriptionTokenService tokenService,
+                                @Qualifier(INSCRIPTION_TOKEN_SERVICE_BEAN_NAME) TokenGeneratorService tokenService,
                                 @Qualifier(INSCRIPTION_EMAIL_SENDER_BEAN_NAME)InscriptionEmailSender inscriptionEmailAdapter) {
         this.inscriptionDataSource = inscriptionDataSource;
         this.tokenService = tokenService;
@@ -29,6 +29,6 @@ public class InscriptionProcessor implements InscriptionUseCase {
         String email = command.email();
         inscriptionDataSource.saveEmail(email);
         inscriptionEmailAdapter.sendInscriptionConfirmation(email);
-        return Optional.of(tokenService.generateInscriptionToken(email));
+        return Optional.of(tokenService.generateJwtToken(email));
     }
 }
