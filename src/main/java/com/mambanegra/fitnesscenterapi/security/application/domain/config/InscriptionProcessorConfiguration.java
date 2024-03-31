@@ -7,6 +7,7 @@ import static com.mambanegra.fitnesscenterapi.security.adapter.out.config.Inscri
 
 import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionDataBaseAdapter;
 import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionEmailAdapter;
+import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionsRepository;
 import com.mambanegra.fitnesscenterapi.security.application.domain.service.TokenGeneratorService;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionEmailSender;
@@ -23,8 +24,8 @@ public class InscriptionProcessorConfiguration {
     public static final String INSCRIPTION_EMAIL_SENDER_BEAN_NAME = "inscriptionEmailSender";
 
     @Bean(name = INSCRIPTION_DATA_SOURCE_ADAPTER_BEAN_NAME)
-    public InscriptionDataSource inscriptionDataSourceAdapter() {
-        return new InscriptionDataBaseAdapter();
+    public InscriptionDataSource inscriptionDataSourceAdapter(InscriptionsRepository repository) {
+        return new InscriptionDataBaseAdapter(repository);
     }
 
     @Bean(name = INSCRIPTION_TOKEN_SERVICE_BEAN_NAME)
