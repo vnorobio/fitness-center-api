@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-20240331-1-vno
+      author: vnorobio
+      changes:
+        - createTable:
+            tableName: inscriptions
+            columns:
+              - column:
+                  name: email
+                  type: varchar(500)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: inscriptions
+  - changeSet:
+      id: 001-20240331-2-vno
+      author: vnorobio
+      changes:
+        - createTable:
+            tableName: "users"
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: middle_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+      rollback:
+        - dropTable:
+            tableName: "users"
