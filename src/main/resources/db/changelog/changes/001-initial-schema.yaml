@@ -56,10 +56,22 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: email
-                  type: varchar(255)
+                  type: varchar(500)
                   constraints:
                     nullable: false
                     unique: true
+              - column:
+                  name: address
+                  type: varchar(500)
+                  constraints:
+                    nullable: true
+                    unique: false
+              - column:
+                  name: phone_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+                    unique: false
       rollback:
         - dropTable:
             tableName: "users"
