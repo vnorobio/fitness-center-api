@@ -2,7 +2,7 @@ spring:
   application:
     name: fitness-center-api
   liquibase:
-    enabled: false
+    enabled: true
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER_NAME}
