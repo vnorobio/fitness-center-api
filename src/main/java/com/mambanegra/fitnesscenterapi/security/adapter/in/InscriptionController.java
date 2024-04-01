@@ -1,6 +1,6 @@
 package com.mambanegra.fitnesscenterapi.security.adapter.in;
 
-import static com.mambanegra.fitnesscenterapi.security.adapter.in.config.InscriptionControllerConfiguration.EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME;
+import static com.mambanegra.fitnesscenterapi.security.application.domain.config.InscriptionUseCaseConfiguration.EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME;
 
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;

@@ -6,7 +6,7 @@ import java.util.List;
 public interface UserManagementUseCase {
     void createUser(UserCreateCommand userCreateCommand);
     List<User> findAll();
-    void deleteUser(UserModificationCommand userModificationCommand);
+    void deleteUser(Long id);
     User findUserById(Long id);
     void updateUser(UserModificationCommand userModificationCommand);
 

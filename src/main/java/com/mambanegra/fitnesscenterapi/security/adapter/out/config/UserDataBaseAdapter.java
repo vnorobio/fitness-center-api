@@ -27,9 +27,8 @@ public class UserDataBaseAdapter implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(User user) {
-        UserEntity entity = mapToEntity(user);
-        userRepository.delete(entity);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override

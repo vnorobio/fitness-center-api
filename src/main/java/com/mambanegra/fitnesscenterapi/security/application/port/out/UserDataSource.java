@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface UserDataSource {
     void createUser(User user);
     List<User> findAll();
-    void deleteUser(User user);
+    void deleteUser(Long id);
     Optional<User> findUserById(Long id);
     void updateUser(User user);
 }

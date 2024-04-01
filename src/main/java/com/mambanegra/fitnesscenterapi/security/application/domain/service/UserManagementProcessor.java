@@ -23,8 +23,8 @@ public class UserManagementProcessor implements UserManagementUseCase {
     }
 
     @Override
-    public void deleteUser(UserModificationCommand userModificationCommand) {
-        userDataSource.deleteUser(userModificationCommand.getUser());
+    public void deleteUser(Long id) {
+        userDataSource.deleteUser(id);
     }
 
     @Override
