@@ -1,4 +1,4 @@
-package com.mambanegra.fitnesscenterapi.security.adapter.out.config;
+package com.mambanegra.fitnesscenterapi.security.adapter.out;
 
 import com.mambanegra.fitnesscenterapi.security.adapter.out.UserEntity;
 import com.mambanegra.fitnesscenterapi.security.adapter.out.UsersRepository;
@@ -45,6 +45,7 @@ public class UserDataBaseAdapter implements UserDataSource {
     private UserEntity mapToEntity(User user) {
         return new UserEntity(
                 user.id(),
+                user.password(),
                 user.firstName(),
                 user.middleName(),
                 user.lastName(),
@@ -57,6 +58,7 @@ public class UserDataBaseAdapter implements UserDataSource {
     private User mapToModel(UserEntity entity) {
         return new User(
                 entity.getId(),
+                entity.getPassword(),
                 entity.getFirstName(),
                 entity.getMiddleName(),
                 entity.getLastName(),

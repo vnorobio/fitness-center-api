@@ -2,6 +2,8 @@ package com.mambanegra.fitnesscenterapi.security.adapter.out;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Objects;
@@ -13,8 +15,9 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String firstName, String middleName, String lastName, String surname, String address, String email, String phoneNumber) {
+    public UserEntity(Long id, String password, String firstName, String middleName, String lastName, String surname, String address, String email, String phoneNumber) {
         this.id = id;
+        this.password = password;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -25,11 +28,15 @@ public class UserEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
     @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "middle_name")
     private String middleName;
@@ -55,6 +62,15 @@ public class UserEntity {
 
     public UserEntity setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserEntity setPassword(String password) {
+        this.password = password;
         return this;
     }
 
@@ -129,12 +145,12 @@ public class UserEntity {
         if (!(o instanceof UserEntity entity)) {
             return false;
         }
-        return Objects.equals(id, entity.id) && Objects.equals(firstName, entity.firstName) && Objects.equals(middleName, entity.middleName) && Objects.equals(lastName, entity.lastName) && Objects.equals(surname, entity.surname) && Objects.equals(address, entity.address) && Objects.equals(email, entity.email) && Objects.equals(phoneNumber, entity.phoneNumber);
+        return Objects.equals(id, entity.id) && Objects.equals(firstName, entity.firstName) && Objects.equals(password, entity.password) && Objects.equals(middleName, entity.middleName) && Objects.equals(lastName, entity.lastName) && Objects.equals(surname, entity.surname) && Objects.equals(address, entity.address) && Objects.equals(email, entity.email) && Objects.equals(phoneNumber, entity.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, middleName, lastName, surname, address, email, phoneNumber);
+        return Objects.hash(id, firstName, password, middleName, lastName, surname, address, email, phoneNumber);
     }
 
     @Override
@@ -142,6 +158,7 @@ public class UserEntity {
         return "UserEntity{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
+                ", password='" + password + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", surname='" + surname + '\'' +

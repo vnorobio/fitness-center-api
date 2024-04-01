@@ -3,7 +3,8 @@ package com.mambanegra.fitnesscenterapi.security.application.port.in;
 import com.mambanegra.fitnesscenterapi.security.application.domain.model.User;
 import java.util.Objects;
 
-public record UserCreateCommand(String firstName,
+public record UserCreateCommand(String password,
+                                String firstName,
                                 String middleName,
                                 String lastName,
                                 String surname,
@@ -21,7 +22,7 @@ public record UserCreateCommand(String firstName,
     }
 
     public User getUser() {
-        return new User(null, firstName, middleName, lastName, surname, address, email, phoneNumber);
+        return new User(null, password,firstName, middleName, lastName, surname, address, email, phoneNumber);
     }
 
 }

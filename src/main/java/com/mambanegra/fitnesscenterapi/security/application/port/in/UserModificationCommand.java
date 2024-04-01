@@ -4,6 +4,7 @@ import com.mambanegra.fitnesscenterapi.security.application.domain.model.User;
 import java.util.Objects;
 
 public record UserModificationCommand(Long id,
+                                      String password,
                                       String firstName,
                                       String middleName,
                                       String lastName,
@@ -26,7 +27,7 @@ public record UserModificationCommand(Long id,
     }
 
     public User getUser() {
-        return new User(id, firstName, middleName, lastName, surname, address, email, phoneNumber);
+        return new User(id, password,firstName, middleName, lastName, surname, address, email, phoneNumber);
     }
 
 }
