@@ -8,6 +8,20 @@ import java.util.Objects;
 @Entity
 public class UserEntity {
 
+    public UserEntity() {
+    }
+
+    public UserEntity(Long id, String firstName, String middleName, String lastName, String surname, String address, String email, String phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.surname = surname;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
     @Id
     @Column(name = "user_id")
     private Long id;
@@ -16,13 +30,13 @@ public class UserEntity {
     private String firstName;
 
     @Column(name = "middle_name")
-    private String secondName;
+    private String middleName;
 
     @Column(name = "last_name")
-    private String firstSurname;
+    private String lastName;
 
     @Column(name = "surname")
-    private String secondSurname;
+    private String surname;
 
     @Column(name = "address")
     private String address;
@@ -51,30 +65,30 @@ public class UserEntity {
         return this;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public UserEntity setSecondName(String secondName) {
-        this.secondName = secondName;
+    public UserEntity setMiddleName(String middleName) {
+        this.middleName = middleName;
         return this;
     }
 
-    public String getFirstSurname() {
-        return firstSurname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public UserEntity setFirstSurname(String firstSurname) {
-        this.firstSurname = firstSurname;
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
-    public String getSecondSurname() {
-        return secondSurname;
+    public String getSurname() {
+        return surname;
     }
 
-    public UserEntity setSecondSurname(String secondSurname) {
-        this.secondSurname = secondSurname;
+    public UserEntity setSurname(String surname) {
+        this.surname = surname;
         return this;
     }
 
@@ -110,15 +124,15 @@ public class UserEntity {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof UserEntity that)) {
+        if (!(o instanceof UserEntity entity)) {
             return false;
         }
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(secondName, that.secondName) && Objects.equals(firstSurname, that.firstSurname) && Objects.equals(secondSurname, that.secondSurname) && Objects.equals(address, that.address) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber);
+        return Objects.equals(id, entity.id) && Objects.equals(firstName, entity.firstName) && Objects.equals(middleName, entity.middleName) && Objects.equals(lastName, entity.lastName) && Objects.equals(surname, entity.surname) && Objects.equals(address, entity.address) && Objects.equals(email, entity.email) && Objects.equals(phoneNumber, entity.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, secondName, firstSurname, secondSurname, address, email, phoneNumber);
+        return Objects.hash(id, firstName, middleName, lastName, surname, address, email, phoneNumber);
     }
 
     @Override
@@ -126,9 +140,9 @@ public class UserEntity {
         return "UserEntity{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", firstSurname='" + firstSurname + '\'' +
-                ", secondSurname='" + secondSurname + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", surname='" + surname + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
