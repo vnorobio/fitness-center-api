@@ -31,4 +31,9 @@ public class InscriptionProcessor implements InscriptionUseCase {
         Key signingKey = keyManagerService.getPrivateKey();
         return Optional.of(tokenService.generateJwtToken(signingKey, email));
     }
+
+    @Override
+    public Optional<String> findById(String email) {
+        return inscriptionDataSource.findById(email);
+    }
 }
