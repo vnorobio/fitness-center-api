@@ -10,12 +10,13 @@ public class InscriptionDataBaseAdapter implements InscriptionDataSource {
 
     @Override
     public void saveEmail(String email) {
-        InscriptionEntity entity = new InscriptionEntity(email);
+        InscriptionEntryPK entryPK = new InscriptionEntryPK(email);
+        InscriptionEntity entity = new InscriptionEntity(entryPK);
         inscriptionRepository.save(entity);
     }
 
     @Override
-    public Optional<String> findById(String email) {
-        return inscriptionRepository.findById(email).map(InscriptionEntity::getEmail);
+    public Optional<String> findById(InscriptionEntryPK entryPK) {
+        return inscriptionRepository.findByEntryPK( entryPK).map(inscriptionEntity -> inscriptionEntity.getEntryPK().getEmail());
     }
 }

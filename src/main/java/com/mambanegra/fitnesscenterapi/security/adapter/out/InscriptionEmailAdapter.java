@@ -46,7 +46,7 @@ public class InscriptionEmailAdapter implements InscriptionEmailSender {
 
     private HttpRequest prepareInscriptionEmailRequest(String email) {
         return HttpRequest.newBuilder()
-                          .timeout(Duration.ofMillis(500))
+                          .timeout(Duration.ofMillis(500000))
                           .header(AUTHORIZATION_TOKEN_HEADER, accessToken)
                           .header("Content-Type", "application/json")
                           .uri(URI.create(resourceUri))

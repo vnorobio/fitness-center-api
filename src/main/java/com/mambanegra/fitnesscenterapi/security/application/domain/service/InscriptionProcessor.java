@@ -1,5 +1,6 @@
 package com.mambanegra.fitnesscenterapi.security.application.domain.service;
 
+import com.mambanegra.fitnesscenterapi.security.adapter.out.InscriptionEntryPK;
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionCommand;
 import com.mambanegra.fitnesscenterapi.security.application.port.in.InscriptionUseCase;
 import com.mambanegra.fitnesscenterapi.security.application.port.out.InscriptionDataSource;
@@ -36,6 +37,7 @@ public class InscriptionProcessor implements InscriptionUseCase {
 
     @Override
     public Optional<String> findById(String email) {
-        return inscriptionDataSource.findById(email);
+        InscriptionEntryPK entryPK = new InscriptionEntryPK(email);
+        return inscriptionDataSource.findById(entryPK);
     }
 }

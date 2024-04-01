@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "/api/v1/inscriptions")
+@RequestMapping("/api/v1/self-management")
 public class InscriptionController {
 
     private final InscriptionUseCase emailInscriptionProcessor;
 
     public InscriptionController(@Qualifier(EMAIL_INSCRIPTION_USE_CASE_BEAN_NAME) InscriptionUseCase emailInscriptionProcessor) {this.emailInscriptionProcessor = emailInscriptionProcessor;}
 
-    @PostMapping()
+    @PostMapping("/inscription")
     public ResponseEntity<String> createInscription(@RequestBody String email) {
         try {
             InscriptionCommand inscriptionCommand = new InscriptionCommand(email);
