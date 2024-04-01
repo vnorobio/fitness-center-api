@@ -21,12 +21,13 @@ public class KeyManagerService {
     }
 
     private void loadPrivateKey() {
-        String rawKey = fileReader.readFile(keyFileUri);
-        String cleanKey = getCleanKey(rawKey);
-
-        String base64KeyString = Base64.getEncoder().encodeToString(cleanKey.getBytes(StandardCharsets.UTF_8));
-
-        this.privateKey = new SecretKeySpec(base64KeyString.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+//        TODO: se inactiva temporalmente la lectura de la llave para el cifrado
+//        String rawKey = fileReader.readFile(keyFileUri);
+//        String cleanKey = getCleanKey(rawKey);
+//
+//        String base64KeyString = Base64.getEncoder().encodeToString(cleanKey.getBytes(StandardCharsets.UTF_8));
+//
+//        this.privateKey = new SecretKeySpec(base64KeyString.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
     }
 
     private String getCleanKey(String rawKey) {

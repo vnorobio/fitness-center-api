@@ -28,8 +28,10 @@ public class InscriptionProcessor implements InscriptionUseCase {
         String email = command.email();
         inscriptionDataSource.saveEmail(email);
         inscriptionEmailAdapter.sendInscriptionConfirmation(email);
-        Key signingKey = keyManagerService.getPrivateKey();
-        return Optional.of(tokenService.generateJwtToken(signingKey, email));
+//        TODO: se debe retornar el jwt para la interaccion con la gestion de usuarios
+//        Key signingKey = keyManagerService.getPrivateKey();
+//        return Optional.of(tokenService.generateJwtToken(signingKey, email));
+        return Optional.of(email);
     }
 
     @Override
